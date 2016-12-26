@@ -1,6 +1,6 @@
 {
   "name": "dom-finder",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A finder use XPath expression to find dom",
   "main": "index.js",
   "scripts": {
