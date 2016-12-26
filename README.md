@@ -18,6 +18,10 @@ opts: {
 }
 Finder.verison()=> get the current Finder version
 ```
+```js
+//search for text
+Finder.advanceFind({attrs: {text: "some text"}});
+```
 
 Enjoy
 ----

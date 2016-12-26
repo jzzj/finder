@@ -3,7 +3,7 @@ const defaultResultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
 const VERSION = "0.0.1";
 
 function advanceFind(opts){
-	const {tagName, attrs, context, global=true, contains=true} = opts;
+	let {tagName, attrs, context, global=true, contains=true} = opts;
 	if(context && context.constructor===Object){
 		context = advanceFind(context);
 	}else if(typeof(context)==="string"){
@@ -19,9 +19,16 @@ function lookup(tagName, attrs, context, isGlobal, isContains){
 	const expr = getFinalExpr(tagName, attrs, isGlobal, isContains);
 	let ret = evaluate(expr, context, defaultResultType);
 	if(ret.snapshotLength){
-		return ret.snapshotLength > 1 ? ret : ret.snapshotItem(0);
+		return ret.snapshotLength > 1 ? returnArray(ret) : ret.snapshotItem(0);
 	}
-	return ret;
+	function returnArray(ret){
+		let result = [], i=0;
+		while(i<ret.snapshotLength){
+			result.push(ret.snapshotItem(i++));
+		}
+		return result;
+	}
+	return null;
 }
 function findNode(selector, context){
 	/*
